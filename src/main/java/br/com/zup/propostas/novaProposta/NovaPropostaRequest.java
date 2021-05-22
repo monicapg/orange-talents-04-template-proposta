@@ -27,6 +27,7 @@ public class NovaPropostaRequest {
     private String documento;
 
     @NotNull(message = "obrigatório.")
+    @Valid
     @JsonProperty("endereco")
     private EnderecoRequest enderecoRequest;
 

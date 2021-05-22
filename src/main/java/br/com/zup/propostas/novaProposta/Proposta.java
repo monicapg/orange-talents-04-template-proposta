@@ -35,6 +35,9 @@ public class Proposta {
     @Embedded
     private Endereco endereco;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public Proposta(@NotBlank String nome, @Email @NotBlank String email,
                     @NotNull @PositiveOrZero BigDecimal salario,
                     String documento, @NotNull Endereco endereco) {
@@ -51,5 +54,13 @@ public class Proposta {
 
     public Long getId() {
         return id;
+    }
+
+    public String getNome() {return nome; }
+
+    public String getDocumento() { return documento;  }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

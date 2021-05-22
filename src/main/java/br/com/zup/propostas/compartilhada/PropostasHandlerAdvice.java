@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,4 +39,12 @@ public class PropostasHandlerAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroPadronizado);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<?> handleContraintViolationException(
+            ConstraintViolationException constraintViolationException) {
+        Collection<String> messages = new ArrayList<>();
+        //messages.add("Endereço com campo inválido");
+        ErroPadronizado erroPadronizado = new ErroPadronizado(messages);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Endereço com campo inválido.");
+    }
 }
