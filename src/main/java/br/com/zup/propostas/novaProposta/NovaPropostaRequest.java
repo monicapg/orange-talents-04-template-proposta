@@ -2,8 +2,6 @@ package br.com.zup.propostas.novaProposta;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Embedded;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -32,7 +30,8 @@ public class NovaPropostaRequest {
     private EnderecoRequest enderecoRequest;
 
     @Deprecated
-    NovaPropostaRequest(){}
+    NovaPropostaRequest() {
+    }
 
     public NovaPropostaRequest(String nome,
                                String email,
@@ -47,7 +46,6 @@ public class NovaPropostaRequest {
         this.enderecoRequest = endereco;
 
     }
-
 
     public String getNome() {
         return nome;
