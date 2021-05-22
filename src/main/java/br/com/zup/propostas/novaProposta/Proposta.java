@@ -1,6 +1,7 @@
 package br.com.zup.propostas.novaProposta;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,10 +30,10 @@ public class Proposta {
     @Documento
     private String documento;
 
+    //@Valid precisa validar endereco
     @NotNull
     @Embedded
     private Endereco endereco;
-
 
     public Proposta(@NotBlank String nome, @Email @NotBlank String email,
                     @NotNull @PositiveOrZero BigDecimal salario,

@@ -2,6 +2,7 @@ package br.com.zup.propostas.novaProposta;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,22 +11,22 @@ import java.math.BigDecimal;
 
 public class NovaPropostaRequest {
 
-    @NotBlank
+    @NotBlank(message = "obrigatório.")
     private String nome;
 
     @Email
-    @NotBlank
+    @NotBlank(message = "obrigatório.")
     private String email;
 
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "obrigatório.")
+    @PositiveOrZero(message = "não pode ser valor negativo.")
     private BigDecimal salario;
 
     @NotBlank
     @Documento
     private String documento;
 
-    @NotNull
+    @NotNull(message = "obrigatório.")
     @JsonProperty("endereco")
     private EnderecoRequest enderecoRequest;
 

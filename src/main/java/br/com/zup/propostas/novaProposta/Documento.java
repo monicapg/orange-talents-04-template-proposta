@@ -20,7 +20,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Documento {
-    String message() default "Documento inválido";
+    String message() default "inválido";
 
     Class<?>[] groups() default {};
 

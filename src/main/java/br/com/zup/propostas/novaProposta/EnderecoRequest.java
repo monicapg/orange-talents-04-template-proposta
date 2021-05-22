@@ -73,7 +73,6 @@ public class EnderecoRequest {
         return estado;
     }
 
-
     public Endereco paraEndereco() {
         return new Endereco(cep, rua, numero, complemento, bairro, cidade, estado);
     }
