@@ -8,7 +8,7 @@ public class AnaliseDaPropostaResponse {
     private ResultadoSolicitacao resultadoSolicitacao;
 
     //GETTERS
-     public String getDocumento() {
+    public String getDocumento() {
         return documento;
     }
     public String getNome() {

@@ -1,6 +1,9 @@
 package br.com.zup.propostas.novaProposta;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import javax.validation.constraints.NotBlank;
+
 
 public class EnderecoRequest {
 
@@ -18,9 +21,6 @@ public class EnderecoRequest {
     String cidade;
     @NotBlank
     String estado;
-
-    @Deprecated
-    EnderecoRequest(){}
 
     public EnderecoRequest(String cep, String rua, String numero, String complemento, String bairro, String cidade, String estado) {
         this.cep = cep;

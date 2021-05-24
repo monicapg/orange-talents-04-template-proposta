@@ -11,6 +11,7 @@ public enum ResultadoSolicitacao {
         this.status = status;
     }
 
+    @Deprecated
     ResultadoSolicitacao() {
 
     }

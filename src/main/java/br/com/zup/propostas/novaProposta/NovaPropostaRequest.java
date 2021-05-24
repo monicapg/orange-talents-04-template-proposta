@@ -29,11 +29,8 @@ public class NovaPropostaRequest {
     @NotNull(message = "obrigatório.")
     @Valid
     @JsonProperty("endereco")
-    private EnderecoRequest enderecoRequest;
+    private EnderecoRequest endereco;
 
-    @Deprecated
-    NovaPropostaRequest() {
-    }
 
     public NovaPropostaRequest(String nome,
                                String email,
@@ -45,7 +42,7 @@ public class NovaPropostaRequest {
         this.email = email;
         this.salario = salario;
         this.documento = documento;
-        this.enderecoRequest = endereco;
+        this.endereco = endereco;
 
     }
 
@@ -66,11 +63,11 @@ public class NovaPropostaRequest {
     }
 
     public EnderecoRequest getEndereco() {
-        return enderecoRequest;
+        return endereco;
     }
 
     public Proposta paraProposta() {
-        Endereco novoEndereco = enderecoRequest.paraEndereco();
+        Endereco novoEndereco = endereco.paraEndereco();
 
         return new Proposta(nome, email, salario, documento, novoEndereco);
     }

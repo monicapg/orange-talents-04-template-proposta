@@ -1,5 +1,6 @@
 package br.com.zup.propostas.novaProposta;
 
+import br.com.zup.propostas.apisexternas.CartoesClient;
 import br.com.zup.propostas.compartilhada.ApiErrorException;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,6 @@ public class NovaPropostaController {
         }
 
         propostaRepository.save(novaProposta);
-
 
         URI location = uriComponentsBuilder.path("/api/propostas/{id}")
                 .buildAndExpand(novaProposta.getId())
