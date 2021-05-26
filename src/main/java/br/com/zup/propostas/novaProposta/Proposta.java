@@ -73,4 +73,8 @@ public class Proposta {
     public void setCartao(Cartao cartao) {
         this.cartao = cartao;
     }
+
+    public Status getStatus() {
+        return status;
+    }
 }

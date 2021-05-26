@@ -3,17 +3,18 @@ package br.com.zup.propostas.novaProposta;
 import br.com.zup.propostas.apisexternas.CartoesClient;
 import br.com.zup.propostas.compartilhada.ApiErrorException;
 import feign.FeignException;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/propostas")
@@ -60,4 +61,16 @@ public class NovaPropostaController {
 
         return ResponseEntity.created(location).body("Proposta cadastrada com sucesso!");
     }
+
+    //035 - Acompanhamento da Proposta
+    @GetMapping("/{idProposta}")
+    public ResponseEntity<?> consultaStatusDaProposta(@PathVariable("idProposta") Long idProposta) {
+
+        Proposta proposta = propostaRepository.findById(idProposta)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        proposta.getStatus();
+        return ResponseEntity.ok(proposta.getStatus()); //FAZER DTO
+
+    }
+
 }
