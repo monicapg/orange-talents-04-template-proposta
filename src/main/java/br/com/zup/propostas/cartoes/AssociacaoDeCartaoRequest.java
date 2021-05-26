@@ -1,7 +1,8 @@
 package br.com.zup.propostas.cartoes;
 
 public class AssociacaoDeCartaoRequest {
-    String documento, nome;
+    String documento;
+    String nome;
     String idProposta;
 
     @Deprecated

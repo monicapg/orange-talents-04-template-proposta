@@ -1,5 +1,7 @@
 package br.com.zup.propostas.novaProposta;
 
+import br.com.zup.propostas.cartoes.Cartao;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -9,6 +11,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "proposta")
 public class Proposta {
 
     @Id
@@ -38,6 +41,9 @@ public class Proposta {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @OneToOne(cascade = CascadeType.MERGE) @JoinColumn(name = "idCartao")
+    Cartao cartao;
+
     public Proposta(@NotBlank String nome, @Email @NotBlank String email,
                     @NotNull @PositiveOrZero BigDecimal salario,
                     String documento, @NotNull Endereco endereco) {
@@ -62,5 +68,9 @@ public class Proposta {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
     }
 }

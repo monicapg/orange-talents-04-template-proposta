@@ -13,7 +13,6 @@ public enum ResultadoSolicitacao {
 
     @Deprecated
     ResultadoSolicitacao() {
-
     }
 
     public Status getStatus() {
