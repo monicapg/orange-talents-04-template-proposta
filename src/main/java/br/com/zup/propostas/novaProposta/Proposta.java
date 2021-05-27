@@ -41,8 +41,13 @@ public class Proposta {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToOne(cascade = CascadeType.MERGE) @JoinColumn(name = "idCartao")
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "idCartao")
     Cartao cartao;
+
+    public boolean possuiCartaoAssociado() {
+        return this.cartao != null;
+    }
 
     public Proposta(@NotBlank String nome, @Email @NotBlank String email,
                     @NotNull @PositiveOrZero BigDecimal salario,
@@ -56,15 +61,32 @@ public class Proposta {
     }
 
     @Deprecated
-    Proposta() { }
+    Proposta() {
+    }
 
     public Long getId() {
         return id;
     }
 
-    public String getNome() {return nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getDocumento() { return documento;  }
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
 
     public void setStatus(Status status) {
         this.status = status;
@@ -77,4 +99,10 @@ public class Proposta {
     public Status getStatus() {
         return status;
     }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
 }
+
+

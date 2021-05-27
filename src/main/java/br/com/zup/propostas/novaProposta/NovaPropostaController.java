@@ -1,6 +1,7 @@
 package br.com.zup.propostas.novaProposta;
 
 import br.com.zup.propostas.apisexternas.CartoesClient;
+import br.com.zup.propostas.cartoes.CartaoResponse;
 import br.com.zup.propostas.compartilhada.ApiErrorException;
 import feign.FeignException;
 import javassist.NotFoundException;
@@ -68,9 +69,8 @@ public class NovaPropostaController {
 
         Proposta proposta = propostaRepository.findById(idProposta)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        proposta.getStatus();
-        return ResponseEntity.ok(proposta.getStatus()); //FAZER DTO
+       // return ResponseEntity.ok(proposta.getStatus());
+        return ResponseEntity.ok(new NovaPropostaResponse(proposta));
 
     }
-
 }

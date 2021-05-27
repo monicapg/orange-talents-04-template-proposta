@@ -37,7 +37,7 @@ public class NovoCartaoService {
         propostaRepository.save(proposta);
 
 
-    }catch (FeignException e) {
+    } catch (FeignException e) {
         System.out.println("Em processamento");
 
     }

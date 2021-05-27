@@ -55,4 +55,5 @@ public class Cartao {
         this.idProposta = idProposta;
 
     }
+
 }
