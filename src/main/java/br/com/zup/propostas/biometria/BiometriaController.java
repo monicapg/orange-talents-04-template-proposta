@@ -7,17 +7,16 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
 
 @RestController
+@RequestMapping("/api/biometria")
 public class BiometriaController {
 
     @Autowired
@@ -26,7 +25,7 @@ public class BiometriaController {
     @Autowired
     BiometriaRepository biometriaRepository;
 
-    @PostMapping("/biometria/{idCartao}")
+    @PostMapping("/{idCartao}")
     public ResponseEntity<?> cadastra(@PathVariable Long idCartao,
                                       @RequestParam("biometria") MultipartFile file,
                                       UriComponentsBuilder builder){
@@ -50,8 +49,15 @@ public class BiometriaController {
         Biometria biometria = new Biometria(biometriaString, cartao);
         biometriaRepository.save(biometria);
 
-        //URI location = builder.path("/{id}").buildAndExpand(biometria.getId()).toUri();
-        return ResponseEntity.ok().build();
+        URI location = builder.path("/biometria/{id}").buildAndExpand(biometria.getId()).toUri();
+        return ResponseEntity.created(location).build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> consultaBiometriaCriada(@PathVariable("id") Long id ) {
+        Biometria biometria = biometriaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok().body("Biometria cadastrada em: "
+                + biometria.getDataDeCadastro().toString());
+    }
 }

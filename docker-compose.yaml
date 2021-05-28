@@ -81,18 +81,43 @@ services:
       LOG_LEVEL: INFO
       JAEGER_ENDPOINT: http://jaeger:14268/api/traces
 
-#DATABASE
-  mysql:
-    image: mysql:5.7
-    volumes:
-      - volume-mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
+##DATABASE
+#  mysql:
+#    image: mysql:5.7
+#    volumes:
+#      - volume-mysql:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_DATABASE: propostas
+#      MYSQL_ROOT_PASSWORD: 123456
+#DB depois de biometria
+  propostadb:
+    image: postgres:9.6
+    container_name: "proposta-postgres"
     environment:
-      MYSQL_DATABASE: propostas
-      MYSQL_ROOT_PASSWORD: 123456
+      POSTGRES_DB: "propostadb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      TZ: "GMT"
+    volumes:
+      - propostadb-volume:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres-proposta-network
+  pgadmin4:
+    image: dpage/pgadmin4:4.10
+    container_name: "pgadmin4"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "secret"
+    ports:
+      - "8082:80"
+    networks:
+      - pgadmin4-network
 
-#PROPOSTAS app
+  #PROPOSTAS app
   propostas:
     build:
       dockerfile: ./Dockerfile
@@ -106,14 +131,16 @@ services:
       - analise
       - contas
       - keycloak
-      - mysql
+      - propostadb
+#      - mysql
     environment:
       ANALISES_URL: http://analise:9999/api/solicitacao
       CARTOES_URL: http://contas:8888/api/cartoes
-      DATABASE_URL: jdbc:mysql://mysql:3306/propostas?createDatabaseIfNotExist=true
+      DATABASE_URL: jdbc:postgresql://localhost:5433/propostadb
+#      DATABASE_URL: jdbc:mysql://mysql:3306/propostas?createDatabaseIfNotExist=true
       SPRING_PROFILES_ACTIVE: prod
-      DATABASE_USER: root
-      DATABASE_PASSWORD: 123456
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
 
   transacoes:
     image: 'zupacademy/transacoes'
@@ -172,4 +199,9 @@ volumes:
   grafana-volume:
   prometheus-volume:
   postgres-volume:
-  volume-mysql:
+  propostadb-volume:
+#  volume-mysql:
+
+networks:
+  postgres-proposta-network:
+  pgadmin4-network:
