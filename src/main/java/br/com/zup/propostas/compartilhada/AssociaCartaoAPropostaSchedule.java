@@ -32,13 +32,9 @@ public class AssociaCartaoAPropostaSchedule {
     public void AssociaCartaoAProposta() {
 
         List<Proposta> lista = listaPropostasElegiveis();
-        System.out.println("Dentro do schedule");
-        System.out.println(lista.toString());
 
         for (Proposta proposta : lista) {
             novoCartaoService.gravar(proposta);
-
-
 
         }
     }

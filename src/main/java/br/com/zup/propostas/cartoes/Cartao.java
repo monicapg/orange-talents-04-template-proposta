@@ -1,5 +1,6 @@
 package br.com.zup.propostas.cartoes;
 
+import br.com.zup.propostas.biometria.Biometria;
 import br.com.zup.propostas.novaProposta.Proposta;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -24,6 +25,8 @@ public class Cartao {
     @Embedded
     private Vencimento vencimento;
     private Long idProposta;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cartao")
+    List<Biometria> biometria;
 
 //    @OneToOne @JoinColumn(name = "proposta")
 //    Proposta proposta;
