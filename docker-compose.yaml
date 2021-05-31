@@ -145,6 +145,7 @@ services:
       DATABASE_PASSWORD: postgres
     networks:
       - postgres-proposta-network
+#    network_mode: host
 
   transacoes:
     image: 'zupacademy/transacoes'

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "accounts", url = "http://localhost:8888")
+@FeignClient(name = "accounts", url = "http://contas:8888") //não roda localhost no docker
 public interface AccountsClient {
 
     @RequestMapping(method = RequestMethod.GET, path = "/api/cartoes",
